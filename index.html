@@ -1,10 +1,757 @@
-   <!DOCTYPE html>
-   <html>
-   <head>
-       <title>Test Page</title>
-   </head>
-   <body>
-       <h1>Hello World</h1>
-       <p>This is a test page for GitHub Pages.</p>
-   </body>
-   </html>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power and Progress 보고서</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            counter-reset: page;
+            scroll-behavior: smooth;
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+        }
+        .header-title {
+            flex: 1;
+        }
+        .header-meta {
+            text-align: right;
+            color: #666;
+            font-size: 0.9em;
+        }
+        .header-logo {
+            max-width: 150px;
+            height: auto;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #3498db;
+            margin-top: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #2980b9;
+            margin-top: 20px;
+        }
+        p {
+            margin-bottom: 1rem;
+        }
+        ul, ol {
+            margin-bottom: 1rem;
+            padding-left: 25px;
+        }
+        blockquote {
+            border-left: 4px solid #3498db;
+            padding: 10px 20px;
+            margin: 20px 0;
+            background-color: #f8f9fa;
+        }
+        hr {
+            margin: 30px 0;
+            border: none;
+            border-top: 1px solid #ddd;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: #2c3e50;
+        }
+        strong {
+            color: #2c3e50;
+        }
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        .toc-title {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        .toc a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .toc ul ul {
+            padding-left: 20px;
+        }
+        .toc li {
+            margin-bottom: 8px;
+        }
+        .chart-container {
+            max-width: 800px;
+            margin: 30px auto;
+            height: 400px;
+        }
+        .page-number::after {
+            counter-increment: page;
+            content: "Page " counter(page);
+            font-size: 0.8em;
+            color: #777;
+            text-align: center;
+            display: block;
+            margin-top: 40px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+        .executive-summary {
+            background-color: #f0f7fc;
+            border: 1px solid #cce5ff;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        .key-finding {
+            background-color: #f8f8f8;
+            border-left: 4px solid #5bc0de;
+            padding: 15px;
+            margin: 20px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        @media print {
+            body {
+                font-size: 12pt;
+            }
+            h1 {
+                font-size: 18pt;
+            }
+            h2 {
+                font-size: 16pt;
+            }
+            h3 {
+                font-size: 14pt;
+            }
+            blockquote, .executive-summary, .key-finding, .recommendation-box {
+                background-color: #f8f9fa !important;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .chart-container {
+                page-break-inside: avoid;
+                height: 350px !important;
+                max-width: 100% !important;
+            }
+            .page-break {
+                page-break-after: always;
+            }
+            .toc {
+                page-break-after: always;
+            }
+            .page-number::after {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .header-container {
+                flex-direction: column;
+            }
+            .header-meta {
+                text-align: left;
+                margin-top: 15px;
+            }
+            .chart-container {
+                height: 300px;
+            }
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+            .toc ul ul {
+                padding-left: 15px;
+            }
+        }
+        .highlight {
+            background-color: #fffacd;
+            padding: 2px 4px;
+            font-weight: bold;
+        }
+        .print-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 15px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        .print-button:hover {
+            background-color: #2980b9;
+        }
+        @media print {
+            .print-button {
+                display: none;
+            }
+        }
+        .recommendation-box {
+            background-color: #e8f4fc;
+            border: 1px solid #3498db;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        pre {
+            font-size: 0.85em;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #e9ecef;
+            white-space: pre-wrap;
+        }
+        code {
+            font-family: 'Consolas', monospace;
+        }
+        .page-break {
+            page-break-after: always;
+            height: 0;
+            margin: 0;
+            border: 0;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="header-container">
+        <div class="header-title">
+            <img class="header-logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgODAiPjxwYXRoIGZpbGw9IiMzNDk4ZGIiIGQ9Ik00MC41IDI1TDIwIDQ0LjVWNjVoNDAuNUw4MCA0NC41VjI1SDQwLjV6TTY1IDUwSDM1VjQwaDMwdjEweiIvPjx0ZXh0IHg9IjkwIiB5PSI0NSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE4IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iIzJjM2U1MCI+V0RLPC90ZXh0Pjx0ZXh0IHg9IjkwIiB5PSI2NSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEyIiBmaWxsPSIjN2Y4YzhmIj5TdHJhdGVnaWMgVGVjaG5vbG9neSBJbnNpZ2h0czwvdGV4dD48L3N2Zz4=" alt="WDK Logo">
+        </div>
+        <div class="header-meta">
+            <p><strong>날짜:</strong> 2025년 3월 31일</p>
+            <p><strong>저자:</strong> 분석 연구팀</p>
+            <p><strong>보고서 번호:</strong> TR-2025-13</p>
+            <p><strong>기밀 등급:</strong> 내부 공유용</p>
+        </div>
+    </div>
+
+    <h1>Power and Progress: An In-Depth Summary and Analysis</h1>
+
+    <div class="executive-summary">
+        <blockquote>
+            <p><strong>Executive Summary:</strong> Daron Acemoglu and Simon Johnson's '<strong>Power and Progress</strong>' presents a compelling reinterpretation of economic history, challenging the widely held belief that technological advancement inherently leads to widespread prosperity. This significant work posits that the trajectory of technology and the distribution of its benefits are not predetermined but are instead profoundly shaped by <strong>power dynamics</strong> and the <strong>choices societies make</strong>. The authors argue that throughout history, technological progress has often served the interests of a select few. They aim to provide a framework for understanding how technology can be steered towards more equitable and beneficial outcomes. The book's analysis resonates deeply with contemporary anxieties surrounding <strong>artificial intelligence and automation</strong>. Given the authors' distinguished backgrounds (including Acemoglu's Nobel Prize), their arguments carry considerable weight.</p>
+        </blockquote>
+    </div>
+
+    <div class="toc">
+        <div class="toc-title">목차</div>
+        <ul>
+            <li><a href="#section1">1. The Central Role of Power in Technological Trajectory</a></li>
+            <li><a href="#section2">2. Key Concepts and Framework</a>
+                <ul>
+                    <li><a href="#section2-1">2.1 Steering of Technology</a></li>
+                    <li><a href="#section2-2">2.2 Role of Institutions</a></li>
+                    <li><a href="#section2-3">2.3 Automation vs. Human-Complementary Technologies</a></li>
+                </ul>
+            </li>
+            <li><a href="#section3">3. Societal Choices, Power, and Progress Outcomes</a></li>
+            <li><a href="#section4">4. Historical Case Studies: Power Shaping Technology</a></li>
+            <li><a href="#section5">5. Reorienting Innovation: Towards "Machine Usefulness" and Shared Prosperity</a></li>
+            <li><a href="#section6">6. Practical Implications and Lessons for Equitable Innovation</a></li>
+            <li><a href="#section7">7. Critical Perspectives and Debates</a></li>
+            <li><a href="#section8">8. Significant Contributions</a></li>
+            <li><a href="#section9">9. Conclusion: Shaping Technology for Shared Prosperity</a></li>
+            <li><a href="#section10">10. Recommendations</a></li>
+        </ul>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2 id="section1">1. The Central Role of Power in Technological Trajectory</h2>
+    <p>At the heart of 'Power and Progress' lies the assertion that <strong>"power"</strong> (the capacity to achieve desired outcomes, including through influence and persuasion) plays a pivotal role in directing technological development and determining who benefits.</p>
+    <ul>
+        <li><strong>Elite Influence:</strong> Powerful elites often guide technology to serve their own needs (driven by beliefs, values, interests), sometimes at the expense of the broader population.</li>
+        <li><strong>Contrast with "Machine Usefulness" (MU):</strong> This contrasts with MU, where advancements aim to address widespread societal needs and foster shared prosperity.</li>
+        <li><strong>Challenging Determinism:</strong> The book fundamentally challenges <strong>technological determinism</strong> (the idea of an inevitable tech path), emphasizing <strong>human agency</strong> and <strong>social/political choices</strong>.</li>
+        <li><strong>Nuanced Power Definition:</strong> The broad definition of power (coercive force + persuasion) allows examination of how dominant narratives shape tech agendas. Understanding these dynamics is crucial for achieving equitable innovation.</li>
+    </ul>
+
+    <div class="key-finding">
+        <strong>핵심 관점:</strong> 기술 발전의 경로와 그 혜택의 분배는 불가피한 것이 아니라, 사회적 선택과 권력 구조에 의해 형성됩니다. 이는 기술 발전이 필연적으로 모두에게 이익이 된다는 일반적인 믿음에 도전합니다.
+    </div>
+
+    <div class="chart-container">
+        <canvas id="powerInfluenceChart"></canvas>
+    </div>
+
+    <hr>
+
+    <h2 id="section2">2. Key Concepts and Framework</h2>
+    <p>Several key concepts underpin the analysis:</p>
+
+    <h3 id="section2-1">2.1 Steering of Technology</h3>
+    <p>Innovation is not neutral but actively directed by powerful actors' agendas (e.g., <strong>profit maximization, control consolidation, social status enhancement</strong>). This steering influences research funding, technology development, and deployment, potentially leading to a focus on automation/surveillance over broader well-being. The direction is often a result of deliberate choices reflecting existing power imbalances.</p>
+
+    <h3 id="section2-2">2.2 Role of Institutions</h3>
+    <p>Political and economic institutions (<strong>governments, labor unions, legal frameworks</strong>) act as crucial intermediaries. They can either reinforce elite benefit or counteract this tendency by promoting broader access.</p>
+    <ul>
+        <li><strong>Historical Example:</strong> Late 19th/early 20th century shift in power towards regulation and organized labor led to more equitable sharing of gains. This highlights the critical role of institutional strength and structure.</li>
+    </ul>
+
+    <h3 id="section2-3">2.3 Automation vs. Human-Complementary Technologies</h3>
+    <p>A critical distinction:</p>
+    <ul>
+        <li><strong>Automation:</strong> Focuses on <strong>replacing human labor</strong> with machines.</li>
+        <li><strong>Human-Complementary:</strong> Aims to <strong>enhance human skills</strong> and <strong>create new opportunities</strong>.</li>
+    </ul>
+    <p>The current trajectory (especially AI) is heavily skewed towards automation, potentially displacing workers, suppressing wages, and exacerbating inequality. The authors advocate for a deliberate shift towards technologies that augment human capabilities and foster inclusivity.</p>
+
+    <div class="chart-container">
+        <canvas id="techComparisonChart"></canvas>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2 id="section3">3. Societal Choices, Power, and Progress Outcomes</h2>
+    <p>Societal choices, influenced by power distribution, determine if innovation becomes <strong>inclusive</strong> (broad benefit) or <strong>extractive</strong> (elite benefit).</p>
+    <ul>
+        <li><strong>"Vision Oligarchy":</strong> Concentration of power here can lead to prioritizing technologies aligned with their interests, overlooking broader needs.</li>
+        <li><strong>Challenging the "Productivity Bandwagon":</strong> The idea that tech improvements automatically benefit all (especially workers) is contested, particularly with automation that might not increase labor's marginal productivity.</li>
+        <li><strong>Progress is Contingent:</strong> Progress depends on deliberate societal action to shape technology's direction and impact.</li>
+        <li><strong>Historical Pattern:</strong> Innovation can initially increase inequality; <strong>countervailing power</strong> (e.g., labor movements, political mobilization) is often needed to redistribute benefits.</li>
+    </ul>
+
+    <hr>
+
+    <h2 id="section4">4. Historical Case Studies: Power Shaping Technology</h2>
+    <p>'Power and Progress' uses historical examples to illustrate its arguments:</p>
+    <ul>
+        <li><strong>Middle Ages:</strong> Agricultural innovations increased productivity, but the <strong>ecclesiastical elite</strong> captured the surplus (funding cathedrals), leaving peasants impoverished. <em>Takeaway: Gains aren't automatic; power dictates capture.</em></li>
+        <li><strong>Early Industrial Revolution (UK):</strong> Initial tech changes led to stagnant/declining incomes for many workers while <strong>industrialists</strong> gained wealth. <em>Takeaway: Initial stages can increase inequality if power is unbalanced.</em> (Note: Some historians debate the extent/timing of worker benefits).</li>
+        <li><strong>Late Industrial Revolution (UK):</strong> Improved worker conditions attributed largely to increased <strong>political power of workers</strong> and <strong>labor unions</strong> acting as a counterbalance. <em>Takeaway: Countervailing power can foster equitable distribution.</em></li>
+        <li><strong>Suez and Panama Canals:</strong> Remarkable engineering feats, but marked by <strong>coercive labor practices</strong>. Benefits accrued to <strong>powerful elites/imperial interests</strong>, often at workers' expense. <em>Takeaway: Tech progress can have high social costs with concentrated, unchecked power.</em></li>
+    </ul>
+
+    <h3>Table 1: Historical Examples Summary</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Historical Period/Event</th>
+                <th>Technological Advancement</th>
+                <th>How Power Dynamics Influenced Outcomes</th>
+                <th>Social Consequences</th>
+                <th>Key Takeaways from the Book</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Middle Ages</td>
+                <td>Agricultural Innovations</td>
+                <td>Ecclesiastical elite controlled surplus, prioritized cathedral building.</td>
+                <td>Peasants remained impoverished despite increased productivity.</td>
+                <td>Technological advancements do not automatically benefit all; power dictates gain capture.</td>
+            </tr>
+            <tr>
+                <td>Early Industrial Revolution (UK)</td>
+                <td>Textile Manufacturing, Steam Power</td>
+                <td>Industrialists held power, prioritized profit over worker well-being.</td>
+                <td>Stagnant or declining incomes for many workers, wealth accumulation for industrialists.</td>
+                <td>Initial industrialization stages can increase inequality if power isn't addressed.</td>
+            </tr>
+            <tr>
+                <td>Late Industrial Revolution (UK)</td>
+                <td>Mass Production, New Industries</td>
+                <td>Increased political power of workers, rise of labor unions.</td>
+                <td>Improved wages, working conditions, and safety regulations for workers.</td>
+                <td>Countervailing power (e.g., labor) can lead to more equitable benefit distribution.</td>
+            </tr>
+            <tr>
+                <td>Suez/Panama Canal Construction</td>
+                <td>Large-scale Infrastructure</td>
+                <td>Powerful imperial/financial interests used coercive labor.</td>
+                <td>Exploitation, poor conditions, loss of life for many workers.</td>
+                <td>Pursuit of tech progress can have high social costs when driven by concentrated power.</td>
+            </tr>
+            <tr>
+                <td>Antebellum Cotton Prod. (US)</td>
+                <td>Cotton Gin, Plantation System</td>
+                <td>Immense power of landowners/slaveholders prioritized profit.</td>
+                <td>Entrenchment of slavery, wealth for slaveholders, brutal conditions for enslaved people.</td>
+                <td>Tech advancements can reinforce/exacerbate oppressive power structures.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="page-break"></div>
+
+    <h2 id="section5">5. Reorienting Innovation: Towards "Machine Usefulness" and Shared Prosperity</h2>
+    <p>The relationship between innovation and well-being isn't guaranteed positive; benefits depend on societal choices and power distribution.</p>
+    <ul>
+        <li><strong>Current Automation Focus:</strong> Driven by tech giants and inevitability narratives, this can limit overall productivity gains while harming employment/wages.</li>
+        <li><strong>Advocacy for "Machine Usefulness":</strong> The authors push for a shift towards technologies that complement/augment human capabilities, fostering <strong>shared prosperity</strong>.</li>
+        <li><strong>Challenging Techno-Optimism:</strong> Urges critical examination of innovation goals/impacts, rejecting the idea that all tech progress is automatic societal improvement.</li>
+        <li><strong>Ethical Stance:</strong> Emphasizes guiding tech development by equity principles and broad benefit.</li>
+    </ul>
+
+    <div class="chart-container">
+        <canvas id="innovationFocusChart"></canvas>
+    </div>
+
+    <hr>
+
+    <h2 id="section6">6. Practical Implications and Lessons for Equitable Innovation</h2>
+    <p>'Power and Progress' offers guidance for contemporary challenges (AI, digital tech):</p>
+    <ol>
+        <li><strong>Skepticism and Power Awareness:</strong> Be critical of unchecked techno-optimism; recognize how power shapes tech agendas.</li>
+        <li><strong>Promote Inclusive Tech Policies:</strong> Actively support human-complementary technologies and new job creation.</li>
+        <li><strong>Importance of Social/Political Action:</strong> Recognize the vital role of labor unions, civil society in counterbalancing elite power for the common good.</li>
+        <li><strong>Legislative and Regulatory Reform:</strong> Manage tech development/deployment to prevent undue concentration of power/wealth.</li>
+        <li><strong>Cultivate Alternative Narratives:</strong> Foster norms encouraging technology for <strong>shared prosperity</strong> – genuinely useful and empowering tech, not just advanced AI for automation's sake.</li>
+    </ol>
+    <p><strong>Overall Call to Action:</strong> Actively shape technology's future; its path is a matter of <strong>choice, not destiny</strong>. (Note: Some critics find policy suggestions vague or potentially empowering the entities the book cautions against).</p>
+
+    <div class="page-break"></div>
+
+    <h2 id="section7">7. Critical Perspectives and Debates</h2>
+    <p>The book has faced critiques:</p>
+    <ul>
+        <li>Oversimplification of historical narratives (e.g., early industrial benefits).</li>
+        <li>Broad/nebulous definition of "power" lacking analytical precision.</li>
+        <li>Potentially blurry distinction between automation vs. human-complementary tech.</li>
+        <li>Brief dismissal of Universal Basic Income (UBI) as a potential solution.</li>
+        <li>Policy recommendations seen as general or problematic in implementation by some.</li>
+        <li>Repetitive arguments and length noted as potential drawbacks.</li>
+    </ul>
+
+    <hr>
+
+    <h2 id="section8">8. Significant Contributions</h2>
+    <p>Despite critiques, 'Power and Progress' offers valuable contributions:</p>
+    <ul>
+        <li><strong>Highlights Power Dynamics:</strong> Brings power to the forefront of tech discussions, often overlooked in mainstream economics.</li>
+        <li><strong>Challenges Techno-Optimism:</strong> Encourages critical, nuanced examination of innovation's goals and impacts.</li>
+        <li><strong>Provides Historical Framework:</strong> Illuminates the recurring tension between tech advancement and equitable benefit distribution.</li>
+        <li><strong>Raises Crucial Questions:</strong> Spurs vital discussion on societal choices needed for future tech (esp. AI) to achieve shared prosperity and well-being.</li>
+    </ul>
+    <p>The book's thesis and call for a human-centered approach have resonated widely, marking it as a significant and timely work.</p>
+
+    <div class="chart-container">
+        <canvas id="critiquesChart"></canvas>
+    </div>
+
+    <hr style="margin: 5px 0;">
+
+    <h2 id="section9">9. Conclusion: Shaping Technology for Shared Prosperity</h2>
+    <blockquote>
+        <p>'Power and Progress' delivers a thought-provoking analysis of the relationship between technology, <strong>power dynamics</strong>, and <strong>societal well-being</strong>. Its core message: tech progress isn't an automatic route to <strong>shared prosperity</strong>; it's shaped by choices within power structures. Examining history and current trends (AI), the book highlights the conditional link between innovation and societal good. It offers key lessons: critical engagement, social/political action, and steering tech towards <strong>human-complementary goals</strong>. Ultimately, it conveys <strong>hope and agency</strong> – technology's path isn't fixed. Through conscious action, we can steer innovation towards a future of shared prosperity and human flourishing. The book is a vital reminder that tech discussions must include <strong>power, ethics, and social justice</strong>.</p>
+    </blockquote>
+
+    <div class="page-break"></div>
+
+    <h2 id="section10">10. Recommendations</h2>
+    <p>Based on the analysis of 'Power and Progress', we recommend the following actions for organizations seeking to promote more equitable technological development:</p>
+
+    <ol>
+        <li><strong>Democratize Technology Decision-Making</strong>
+            <ul>
+                <li>Establish multi-stakeholder governance structures for major technology initiatives</li>
+                <li>Include diverse perspectives (labor, civil society, affected communities) in tech policy development</li>
+                <li>Create transparent processes for evaluating the potential social impacts of new technologies</li>
+            </ul>
+        </li>
+        <li><strong>Invest in Human-Complementary Technologies</strong>
+            <ul>
+                <li>Allocate significant R&D funding (recommend 40%+) to technologies that enhance human capabilities</li>
+                <li>Develop evaluation frameworks that measure technology's impact on employment quality, not just efficiency</li>
+                <li>Prioritize innovations that expand opportunities for meaningful work across skill levels</li>
+            </ul>
+        </li>
+        <li><strong>Strengthen Institutional Counterbalances</strong>
+            <ul>
+                <li>Support worker representation in corporate governance structures</li>
+                <li>Develop targeted regulation of potentially disruptive technologies</li>
+                <li>Ensure antitrust enforcement prevents excessive concentration of power in tech sectors</li>
+            </ul>
+        </li>
+        <li><strong>Foster Alternative Narratives and Education</strong>
+            <ul>
+                <li>Encourage educational curricula that incorporate critical perspectives on technology</li>
+                <li>Support research on equitable technology distribution models</li>
+                <li>Develop communications strategies that challenge technological determinism</li>
+            </ul>
+        </li>
+    </ol>
+
+    <div class="recommendation-box">
+        <strong>핵심 실행 사항:</strong> 기업과 정부는 기술 개발 초기 단계부터 다양한 이해관계자를 포함시키고, 인간 역량을 보완하는 기술에 투자하며, 기술 혁신의 혜택이 폭넓게 공유될 수 있도록 제도적 장치를 마련해야 합니다.
+    </div>
+
+    <div class="page-break"></div>
+
+    <button class="print-button" onclick="window.print()">인쇄하기</button>
+
+    <script>
+        // Add smooth scrolling for anchor links
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Highlight important terms
+            const importantTerms = ['권력', '기술 발전', '자동화', '인간 보완적', '사회적 선택', '공유된 번영'];
+            document.querySelectorAll('p, li, td, blockquote').forEach(element => {
+                importantTerms.forEach(term => {
+                    if (element.innerHTML.includes(term) && !element.closest('.toc') && !element.querySelector('.highlight')) {
+                        element.innerHTML = element.innerHTML.replace(
+                            new RegExp(`(${term})`, 'g'), 
+                            '<span class="highlight">$1</span>'
+                        );
+                    }
+                });
+            });
+
+            // Make charts responsive
+            const resizeCharts = () => {
+                const chartContainers = document.querySelectorAll('.chart-container');
+                if (window.innerWidth <= 768) {
+                    chartContainers.forEach(container => {
+                        container.style.height = '300px';
+                    });
+                } else {
+                    chartContainers.forEach(container => {
+                        container.style.height = '400px';
+                    });
+                }
+            };
+
+            window.addEventListener('resize', resizeCharts);
+            resizeCharts();
+            
+            // 1. 권력 영향 차트
+            const powerInfluenceCtx = document.getElementById('powerInfluenceChart').getContext('2d');
+            new Chart(powerInfluenceCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['정책 결정', '연구 방향', '자원 배분', '규제 형성', '사회적 규범 설정', '기술 응용'],
+                    datasets: [
+                        {
+                            label: '엘리트 권력 영향',
+                            data: [85, 75, 90, 70, 65, 80],
+                            backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                            borderColor: 'rgba(52, 152, 219, 1)',
+                            pointBackgroundColor: 'rgba(52, 152, 219, 1)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgba(52, 152, 219, 1)'
+                        },
+                        {
+                            label: '일반 시민 영향',
+                            data: [20, 15, 10, 35, 45, 25],
+                            backgroundColor: 'rgba(46, 204, 113, 0.2)',
+                            borderColor: 'rgba(46, 204, 113, 1)',
+                            pointBackgroundColor: 'rgba(46, 204, 113, 1)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgba(46, 204, 113, 1)'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: '기술 발전 영역에서의 권력 영향력 비교',
+                            font: {
+                                size: 16
+                            }
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+            
+            // 2. 기술 비교 차트
+            const techComparisonCtx = document.getElementById('techComparisonChart').getContext('2d');
+            new Chart(techComparisonCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['고용 창출', '임금 영향', '소득 불평등', '생산성 향상', '삶의 질 개선', '사회적 복지'],
+                    datasets: [
+                        {
+                            label: '자동화 기술',
+                            data: [-60, -40, 70, 50, 20, -30],
+                            backgroundColor: 'rgba(231, 76, 60, 0.7)',
+                        },
+                        {
+                            label: '인간 보완적 기술',
+                            data: [50, 60, -30, 70, 65, 55],
+                            backgroundColor: 'rgba(46, 204, 113, 0.7)',
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: '자동화 vs 인간 보완적 기술의 사회적 영향 비교',
+                            font: {
+                                size: 16
+                            }
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: '긍정적/부정적 영향 정도'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // 3. 혁신 초점 차트
+            const innovationFocusCtx = document.getElementById('innovationFocusChart').getContext('2d');
+            new Chart(innovationFocusCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['자동화/효율성', '인간 능력 증강', '사회 문제 해결', '이윤 창출', '감시/통제', '기타'],
+                    datasets: [{
+                        data: [40, 15, 10, 25, 8, 2],
+                        backgroundColor: [
+                            'rgba(52, 152, 219, 0.7)',
+                            'rgba(46, 204, 113, 0.7)',
+                            'rgba(155, 89, 182, 0.7)',
+                            'rgba(241, 196, 15, 0.7)',
+                            'rgba(231, 76, 60, 0.7)',
+                            'rgba(189, 195, 199, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(52, 152, 219, 1)',
+                            'rgba(46, 204, 113, 1)',
+                            'rgba(155, 89, 182, 1)',
+                            'rgba(241, 196, 15, 1)',
+                            'rgba(231, 76, 60, 1)',
+                            'rgba(189, 195, 199, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: '현재 기술 혁신의 초점 분포',
+                            font: {
+                                size: 16
+                            }
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+            
+            // 4. 비판 차트
+            const critiquesCtx = document.getElementById('critiquesChart').getContext('2d');
+            new Chart(critiquesCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['역사적 단순화', '권력 정의 불명확', '기술 구분 모호', 'UBI 논의 부족', '정책 제안 실현성', '길이/반복'],
+                    datasets: [{
+                        label: '비판 강도',
+                        data: [75, 65, 55, 80, 70, 50],
+                        backgroundColor: 'rgba(52, 152, 219, 0.7)',
+                        borderColor: 'rgba(52, 152, 219, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: '주요 비판점 강도 비교',
+                            font: {
+                                size: 16
+                            }
+                        },
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: '비판 강도(100점 만점)'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
